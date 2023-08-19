@@ -14,21 +14,45 @@ namespace Alex_Fearday_Unit2_IT481
     public partial class Form1 : Form
     {
         DB database;
+        private string user;
+        private string password;
+        private string server;
+        private string databaseString;
+
         public Form1()
         {
             InitializeComponent();
+            button1.Click += new EventHandler(button1_Click);
+            button2.Click += new EventHandler(button2_Click);
+            button3.Click += new EventHandler(button3_Click);
+            button4.Click += new EventHandler(button4_Click);
+            button5.Click += new EventHandler(button5_Click);
+            button6.Click += new EventHandler(button6_Click);
+            button7.Click += new EventHandler(button7_Click);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            bool isValid = true;
+            user = textBox1.Text;
+            password = textBox2.Text;
+            server = textBox3.Text;
+            databaseString = textBox4.Text;
+
+            if (user.Length == 0 || password.Length == 0 || server.Length == 0 || databaseString.Length == 0)
             {
-                database = new DB("Server = DESKTOP-4J19U6L\\SQLEXPRESS;" + "Trusted_Connection=true;" + "Database=northwind;" + "User Instance=false;" + "Connection timeout=30");
-                MessageBox.Show("Connection information was sent.");
+                isValid = false;
+                MessageBox.Show("You must enter username, password, server, and database values");
             }
-            catch (Exception ex)
+            
+            if (isValid)
             {
-                Console.WriteLine(ex.Message);
+                database = new DB("Server = " + server + "\\SQLEXPRESS; " +
+                                       "Trusted_Connection=true;" +
+                                      "Database = " + database + ";" +
+                                      "User Id = " + user + ";" +
+                                      "Password = " + password + ";");
+                MessageBox.Show("Connection information was sent.");
             }
         }
 
